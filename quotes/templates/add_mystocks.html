@@ -1,0 +1,59 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+
+<h1> My Stock tracker</h1>
+<br/>
+
+	<form action="{% url 'add_mystocks' %}" class="form-inline my-2 my-lg-0" method="POST">
+         {% csrf_token %}
+	     <input class="form-control mr-sm-2" type="search" placeholder="Symbol" aria-label="Search"
+	     name="myticker">
+	     <input class="form-control mr-sm-2" type="search" placeholder="Price" aria-label="Search"
+	     name="myprice">
+	     <input class="form-control mr-sm-2" type="search" placeholder="Number Bought" aria-label="Search"
+	     name="myowned">
+	     <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Add</button>
+    </form>
+ 	<br/><br/>
+
+
+
+ 	<table class="table table-sm table-bordered table-hover">
+  <thead style="background-color: #CEF6F5">
+    <tr>
+      <th scope="col">Symbol</th>
+      <th scope="col">Company</th>
+      <th scope="col">MyPrice</th>
+      <th scope="col">Owned</th>
+      <th scope="col">Broker</th>
+      <th scope="col">Date</th>
+      <th scope="col">Del/Arc</th>
+    </tr>
+  </thead>
+  <tbody>
+
+     <!--  allstocks is defined in views.py -->
+     {% for Mystockdb in allstocks %}
+        <tr>
+            <td>{{ Mystockdb.myticker}}</td>
+            <td>{{ Mystockdb.myprice}} </td>
+            <td>{{ Mystockdb.myprice}} </td>
+            <td>{{ Mystockdb.myowned}}</td>
+            <td>Robin Hood</td>
+            <td>Nov 2 2020</td>
+            <td><a href="{% url 'delete' Mystockdb.id %}">Del</a> / <a href="{% url 'delete' Mystockdb.id %}">Arc</a></td>
+        </tr>
+        
+
+     {% endfor %}   
+
+     <br/><br/>
+
+
+  </tbody>
+</table>
+
+
+
+{% endblock %}
